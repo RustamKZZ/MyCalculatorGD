@@ -1,6 +1,7 @@
 package com.example.mycalculatorgd;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -19,7 +20,17 @@ public class MainActivity extends AppCompatActivity {
     Button buttonNine;
     Button buttonZero;
 
-    String strNum = "";
+    Button buttonPlus;
+    Button buttonMinus;
+    Button buttonMultiply;
+    Button buttonDivision;
+    Button buttonDot;
+    Button buttonDelete;
+    Button buttonEqual;
+
+    private String strNum = "";
+    private double digitOne;
+    private char operation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +49,14 @@ public class MainActivity extends AppCompatActivity {
         buttonNine = findViewById(R.id.button_nine);
         buttonZero = findViewById(R.id.button_zero);
 
+        buttonPlus = findViewById(R.id.button_plus);
+        buttonMinus = findViewById(R.id.button_minus);
+        buttonMultiply = findViewById(R.id.button_multiply);
+        buttonDivision = findViewById(R.id.button_dev);
+        buttonDot = findViewById(R.id.button_dot);
+        buttonDelete = findViewById(R.id.button_delete);
+        buttonEqual = findViewById(R.id.button_equal);
+
         buttonOne.setOnClickListener(view -> addNumber(1));
         buttonTwo.setOnClickListener(view -> addNumber(2));
         buttonThree.setOnClickListener(view -> addNumber(3));
@@ -48,10 +67,26 @@ public class MainActivity extends AppCompatActivity {
         buttonEight.setOnClickListener(view -> addNumber(8));
         buttonNine.setOnClickListener(view -> addNumber(9));
         buttonZero.setOnClickListener(view -> addNumber(0));
+
+        buttonPlus.setOnClickListener(view -> mathAction('+'));
+        buttonMinus.setOnClickListener(view -> mathAction('-'));
+        buttonMultiply.setOnClickListener(view -> mathAction('*'));
+        buttonDivision.setOnClickListener(view -> mathAction('/'));
+
     }
 
+    private void mathAction(char c) {
+        this.digitOne = Double.parseDouble(this.strNum);
+        playEt.setText(String.valueOf(c));
+        this.strNum = "";
+        this.operation = c;
+    }
+
+
     void addNumber(int number) {
-        strNum += Integer.toString(number);
+        this.strNum += Integer.toString(number);
         playEt.setText(strNum);
     }
+
+
 }
