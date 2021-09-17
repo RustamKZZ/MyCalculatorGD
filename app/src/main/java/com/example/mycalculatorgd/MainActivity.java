@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         playEt = findViewById(R.id.display_result);
         buttonOne = findViewById(R.id.button_one);
         buttonTwo = findViewById(R.id.button_two);
-        buttonThree= findViewById(R.id.button_three);
+        buttonThree = findViewById(R.id.button_three);
         buttonFour = findViewById(R.id.button_four);
         buttonFive = findViewById(R.id.button_five);
         buttonSix = findViewById(R.id.button_six);
@@ -73,13 +73,55 @@ public class MainActivity extends AppCompatActivity {
         buttonMultiply.setOnClickListener(view -> mathAction('*'));
         buttonDivision.setOnClickListener(view -> mathAction('/'));
 
+        buttonEqual.setOnClickListener(view -> equalCalculation());
+
+        buttonDot.setOnClickListener(view -> {
+            if (!strNum.contains(".")) {
+                strNum += ".";
+                playEt.setText(strNum);
+            }
+        });
+
+        buttonDelete.setOnClickListener(view -> {
+            playEt.setText("");
+            strNum = "";
+            operation = 'h';
+            digitOne = 0;
+        });
+
+
+    }
+
+    void equalCalculation() {
+        double result = 0;
+        switch (this.operation) {
+            case '+':
+                result = this.digitOne + Double.parseDouble(this.strNum);
+                break;
+            case '-':
+                result = this.digitOne - Double.parseDouble(this.strNum);
+                break;
+            case '*':
+                result = this.digitOne * Double.parseDouble(this.strNum);
+                break;
+            case '/':
+                result = this.digitOne / Double.parseDouble(this.strNum);
+                break;
+        }
+        playEt.setText(Double.toString(result));
+        this.strNum = "";
+        this.operation = 'h';
+        this.digitOne = 0;
+
     }
 
     private void mathAction(char c) {
-        this.digitOne = Double.parseDouble(this.strNum);
-        playEt.setText(String.valueOf(c));
-        this.strNum = "";
-        this.operation = c;
+        if (this.operation != '+' && this.operation != '-' && this.operation != '*' && this.operation != '/') {
+            this.digitOne = Double.parseDouble(this.strNum);
+            playEt.setText(String.valueOf(c));
+            this.strNum = "";
+            this.operation = c;
+        }
     }
 
 
