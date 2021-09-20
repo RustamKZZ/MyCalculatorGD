@@ -1,13 +1,14 @@
 package com.example.mycalculatorgd;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
+
     EditText playEt;
     Button buttonOne;
     Button buttonTwo;
@@ -36,6 +37,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if(savedInstanceState != null && savedInstanceState.containsKey("saved_double_num")
+                && savedInstanceState.containsKey("saved_key_str") && savedInstanceState.containsKey("saved_char_operation")){
+            digitOne = savedInstanceState.getDouble("saved_double_num");
+            strNum = savedInstanceState.getString("saved_key_str");
+            operation = savedInstanceState.getChar("saved_char_operation");
+        }
 
         playEt = findViewById(R.id.display_result);
         buttonOne = findViewById(R.id.button_one);
@@ -130,5 +138,11 @@ public class MainActivity extends AppCompatActivity {
         playEt.setText(strNum);
     }
 
-
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putDouble("saved_double_num", digitOne);
+        outState.putString("saved_key_str", strNum);
+        outState.putChar("saved_char_operation", operation);
+        super.onSaveInstanceState(outState);
+    }
 }
