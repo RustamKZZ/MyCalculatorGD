@@ -10,6 +10,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final char ADD = '+';
+    private static final char SUB = '-';
+    private static final char MULTIPLY = '*';
+    private static final char DIVISION = '/';
     TextView playEt;
     Button oneButton;
     Button twoButton;
@@ -104,16 +108,16 @@ public class MainActivity extends AppCompatActivity {
     void equalCalculation() {
         double result = 0;
         switch (this.operation) {
-            case '+':
+            case ADD:
                 result = this.digitOne + Double.parseDouble(this.strNum);
                 break;
-            case '-':
+            case SUB:
                 result = this.digitOne - Double.parseDouble(this.strNum);
                 break;
-            case '*':
+            case MULTIPLY:
                 result = this.digitOne * Double.parseDouble(this.strNum);
                 break;
-            case '/':
+            case DIVISION:
                 result = this.digitOne / Double.parseDouble(this.strNum);
                 break;
         }
